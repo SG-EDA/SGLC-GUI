@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>SG-LogicalCircuit</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTextEdit" name="textEdit">
@@ -93,7 +93,6 @@
    <addaction name="menu_4"/>
    <addaction name="menu_5"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="action_3">
    <property name="text">
     <string>加载电路脚本</string>
