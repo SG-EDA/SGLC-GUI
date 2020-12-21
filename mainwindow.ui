@@ -156,83 +156,83 @@
     </property>
     <addaction name="separator"/>
     <addaction name="separator"/>
-    <addaction name="action_3"/>
-    <addaction name="action_12"/>
+    <addaction name="load"/>
+    <addaction name="closeCircuitScript"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
      <string>输入输出</string>
     </property>
-    <addaction name="action_4"/>
-    <addaction name="action_5"/>
+    <addaction name="setLine"/>
+    <addaction name="resetTrigger"/>
    </widget>
    <widget class="QMenu" name="menu_4">
     <property name="title">
      <string>运行</string>
     </property>
-    <addaction name="action_6"/>
-    <addaction name="action_7"/>
-    <addaction name="action_8"/>
-    <addaction name="action_9"/>
+    <addaction name="run"/>
+    <addaction name="truthTable"/>
+    <addaction name="stateTruthTable"/>
+    <addaction name="run2"/>
    </widget>
    <widget class="QMenu" name="menu_5">
     <property name="title">
      <string>统计</string>
     </property>
-    <addaction name="action_10"/>
-    <addaction name="action_11"/>
+    <addaction name="elementCount"/>
+    <addaction name="lineComplexity"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
    <addaction name="menu_4"/>
    <addaction name="menu_5"/>
   </widget>
-  <action name="action_3">
+  <action name="load">
    <property name="text">
     <string>加载电路脚本</string>
    </property>
   </action>
-  <action name="action_4">
+  <action name="setLine">
    <property name="text">
     <string>设定线路变量值</string>
    </property>
   </action>
-  <action name="action_5">
+  <action name="resetTrigger">
    <property name="text">
     <string>重置触发器状态</string>
    </property>
   </action>
-  <action name="action_6">
+  <action name="run">
    <property name="text">
     <string>运行</string>
    </property>
   </action>
-  <action name="action_7">
+  <action name="truthTable">
    <property name="text">
     <string>真值表</string>
    </property>
   </action>
-  <action name="action_8">
+  <action name="stateTruthTable">
    <property name="text">
     <string>状态转移真值表</string>
    </property>
   </action>
-  <action name="action_9">
+  <action name="run2">
    <property name="text">
     <string>运行（输出电路状态）</string>
    </property>
   </action>
-  <action name="action_10">
+  <action name="elementCount">
    <property name="text">
     <string>元件计数</string>
    </property>
   </action>
-  <action name="action_11">
+  <action name="lineComplexity">
    <property name="text">
     <string>线路复杂度</string>
    </property>
   </action>
-  <action name="action_12">
+  <action name="closeCircuitScript">
    <property name="text">
     <string>关闭当前电路脚本</string>
    </property>
