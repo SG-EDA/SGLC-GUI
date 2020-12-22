@@ -16,28 +16,19 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     script s;
+    bool loaded=false;
 
 private slots:
 
     void on_setLine_triggered();
-
     void on_resetTrigger_triggered();
-
     void on_run_triggered();
-
-
     void on_truthTable_triggered();
-
     void on_stateTruthTable_triggered();
-
     void on_run2_triggered();
-
     void on_elementCount_triggered();
-
     void on_lineComplexity_triggered();
-
     void on_closeCircuitScript_triggered();
-
     void on_load_triggered();
 
 private:
