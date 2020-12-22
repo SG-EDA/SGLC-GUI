@@ -69,9 +69,10 @@ void MainWindow::on_run_triggered()
 {
     if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
-    s.getManager()->run(); //fix:需改输出，输出到文本框
+    string result=s.getManager()->run();
+    ui->textEdit->append(QString::fromStdString(result));
+    //fix:需改输出，输出到文本框
 }
-
 
 void MainWindow::on_truthTable_triggered()
 {
@@ -101,14 +102,18 @@ void MainWindow::on_elementCount_triggered()
 {
     if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
-    s.getManager()->gateNum(); //fix:需改输出，输出到文本框
+    string result=s.getManager()->gateNum();
+    ui->textEdit->append(QString::fromStdString(result));
+    //fix:需改输出，输出到文本框
 }
 
 void MainWindow::on_lineComplexity_triggered()
 {
     if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
-    s.getManager()->multiplexing(); //fix:需改输出，输出到文本框
+    string result=s.getManager()->multiplexing();
+    ui->textEdit->append(QString::fromStdString(result));
+    //fix:需改输出，输出到文本框
 }
 
 void MainWindow::on_closeCircuitScript_triggered()

@@ -150,14 +150,16 @@ public:
     void addInputLine(line* n) { allInput.push_back(n); }
     void addOutputLine(line* n) { allOutput.push_back(n); }
 
-    void gateNum()
+    string gateNum()
     {
-        cout<<"Gate:"<<allNode.size()<<endl;
+        string result;
+        result+="Gate:"+to_string(allNode.size())+"\n";
         map<string,int> num;
         for(node* i : allNode)
             num[i->g->getName()]+=1;
         for(auto i : num)
-            cout<<i.first<<":"<<i.second<<endl;
+            result+=i.first+":"+to_string(i.second)+"\n";
+        return result;
     }
 
     void trueTable(uint sub = 0, bool staRecu=false)
@@ -181,27 +183,30 @@ public:
         conti();
     }
 
-    void run(bool outputSta=false)
+    string run(bool outputSta=false)
     {
+        string result;
+
         resetChunk();
         for(line* i : allInput)
-            cout<<"["<<i->getName()<<"]"<<i->get()<<" ";
+            result+="["+i->getName()+"]"+to_string(i->get())+" ";
 
         if(outputSta)
         {
-            cout<<" || ";
+            result+=" || ";
             for(uint i=0;i<allTri.size();i++)
             {
                 tri* t=(tri*)(allTri[i]->g);
-                cout<<"["<<i<<"]"<<t->getQ()<<" ";
+                result+="["+to_string(i)+"]"+to_string(t->getQ())<+" ";
             }
         }
 
-        cout<<" -> ";
+        result+=" -> ";
         for(uint i=0;i<allOutput.size();i++)
-            cout<<"["<<i<<"]"<<allOutput[i]->get()<<" ";
+            result+="["+to_string(i)+"]"+to_string(allOutput[i]->get())+" ";
 
-        cout<<endl;
+        result+="\n";
+        return result;
     }
 
     void resetTri()
@@ -226,21 +231,42 @@ public:
         cout<<endl;
     }
 
-    void multiplexing()
+    map<line*,int> getLineMultiplexing()
     {
-        uint lineNum=0;
-        map<string,int>result;
+        map<line*,int> result;
         for(node* i : allNode)
         {
             for(line* j : i->inputLine)
-                result[j->getName()]++;
+                result[j]++;
         }
-        for(auto i : result)
+        return result;
+    }
+
+    map<node*,int> getNodeMultiplexing()
+    {
+        map<node*,int> result;
+        for(line* i : allLine) //allLine记录的是输出
+            result[i->n]++; //看看它是从哪个元件连出来的，给那个元件加
+
+        for(node* i : allNode)
+            result[i]+=i->inputLine.size(); //inputLine记录的是输入，有几个输入加几
+
+        return result;
+    }
+
+    string multiplexing()
+    {
+        string strResult;
+
+        uint lineNum=0;
+        for(auto i : this->getLineMultiplexing())
         {
-            cout<<"["<<i.first<<"]"<<i.second<<"\t"; 
+            strResult+="["+i.first->getName()+"]"+to_string(i.second)+"\t";
             lineNum+=i.second;
         }
-        cout<<endl<<"lineNum:"<<lineNum<<endl;
+        strResult+="\nlineNum:"+to_string(lineNum)+"\n";
+
+        return strResult;
     }
 };
 

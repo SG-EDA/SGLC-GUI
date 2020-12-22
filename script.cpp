@@ -139,9 +139,9 @@ void script::commandExp(string sen)
     else if(sen=="statTable")
         manager->trueTable(0,true);
     else if(sen=="gateNum")
-        manager->gateNum();
+        cout<<manager->gateNum();
     else if(sen=="run")
-        manager->run();
+        cout<<manager->run();
     else if(sen=="stru")
         manager->stru();
     else if(sen=="clear")
@@ -149,7 +149,7 @@ void script::commandExp(string sen)
     else if(sen=="middleVar")
         manager->middleVar();
     else if(sen=="multiplexing")
-        manager->multiplexing();
+        cout<<manager->multiplexing();
     else if(sen=="resetTri")
         manager->resetTri();
     else
