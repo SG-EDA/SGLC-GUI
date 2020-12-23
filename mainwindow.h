@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
 #include "script.h"
 
 QT_BEGIN_NAMESPACE
@@ -33,5 +34,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QGraphicsScene* scene;
 };
 #endif // MAINWINDOW_H

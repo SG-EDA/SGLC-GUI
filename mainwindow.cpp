@@ -7,15 +7,14 @@
 #include <QFormLayout>
 #include <QDialogButtonBox>
 #include <QLineEdit>
-#include <QGraphicsScene>
 #include <QFileDialog>
 #include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->Graph->setScene(new QGraphicsScene(0,0,1000,1000));
-    ui->textEdit->setText("hello");
+    this->scene=new QGraphicsScene(0,0,1000,1000);
+    ui->Graph->setScene(scene);
 }
 
 MainWindow::~MainWindow()
@@ -62,23 +61,30 @@ void MainWindow::on_resetTrigger_triggered()
     if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
     else
-    s.getManager()->resetTri();
+    {
+        s.getManager()->resetTri();
+    }
 }
 
 void MainWindow::on_run_triggered()
 {
     if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
-    string result=s.getManager()->run();
-    ui->textEdit->append(QString::fromStdString(result));
-    //fix:需改输出，输出到文本框
+    else
+    {
+        string result=s.getManager()->run();
+        ui->textEdit->append(QString::fromStdString(result));
+    }
 }
 
 void MainWindow::on_truthTable_triggered()
 {
     if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
-    s.getManager()->trueTable();
+    else
+    {
+        s.getManager()->trueTable();
+    }
     //fix:需改输出，弹一个显示表的新窗口
 }
 
@@ -86,7 +92,10 @@ void MainWindow::on_stateTruthTable_triggered()
 {
     if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
-    s.getManager()->trueTable(0,true);
+    else
+    {
+        s.getManager()->trueTable(0,true);
+    }
     //fix:需改输出，弹一个显示表的新窗口
 }
 
@@ -102,28 +111,35 @@ void MainWindow::on_elementCount_triggered()
 {
     if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
-    string result=s.getManager()->gateNum();
-    ui->textEdit->append(QString::fromStdString(result));
-    //fix:需改输出，输出到文本框
+    else
+    {
+        string result=s.getManager()->gateNum();
+        ui->textEdit->append(QString::fromStdString(result));
+    }
 }
 
 void MainWindow::on_lineComplexity_triggered()
 {
     if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
-    string result=s.getManager()->multiplexing();
-    ui->textEdit->append(QString::fromStdString(result));
-    //fix:需改输出，输出到文本框
+    else
+    {
+        string result=s.getManager()->multiplexing();
+        ui->textEdit->append(QString::fromStdString(result));
+    }
 }
 
 void MainWindow::on_closeCircuitScript_triggered()
 {
     if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
-    s.clear();
-    ui->textEdit->clear();
-    ui->Graph->scene()->clear();
-    //fix:清空文本框和图形框里的内容
+    else
+    {
+        s.clear();
+        ui->textEdit->clear();
+        ui->Graph->scene()->clear();
+    }
+    //清空文本框和图形框里的内容
 }
 
 QString ReadTXT(QString path)
