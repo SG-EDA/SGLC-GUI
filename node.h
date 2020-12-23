@@ -162,8 +162,9 @@ public:
         return result;
     }
 
-    void trueTable(uint sub = 0, bool staRecu=false)
+    string trueTable(uint sub = 0, bool staRecu=false)
     {
+        string result;
         auto conti=[&]()
         {
             if(sub==allInput.size()-1)
@@ -171,7 +172,7 @@ public:
                 if(staRecu)
                     recuTriTrue();
                 else
-                    run();
+                    result+=run();
             }
             else
                 trueTable(sub+1,staRecu);
@@ -181,6 +182,8 @@ public:
         conti();
         allInput[sub]->constVal=1;
         conti();
+
+        return result;
     }
 
     string run(bool outputSta=false)

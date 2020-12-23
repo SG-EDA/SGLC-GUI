@@ -9,11 +9,13 @@
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QTextStream>
+#include <QGraphicsLineItem>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->scene=new QGraphicsScene(0,0,1000,1000);
+    this->resize(QSize(1920,1080));
+    this->scene=new QGraphicsScene(0,0,1920,1080);
     ui->Graph->setScene(scene);
 }
 
@@ -83,9 +85,10 @@ void MainWindow::on_truthTable_triggered()
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
     else
     {
-        s.getManager()->trueTable();
+
+        string result=s.getManager()->trueTable();
+        ui->textEdit->append(QString::fromStdString(result));
     }
-    //fix:需改输出，弹一个显示表的新窗口
 }
 
 void MainWindow::on_stateTruthTable_triggered()
@@ -94,16 +97,26 @@ void MainWindow::on_stateTruthTable_triggered()
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
     else
     {
-        s.getManager()->trueTable(0,true);
+       string result=s.getManager()->trueTable(0,true);
+       ui->textEdit->append(QString::fromStdString(result));
     }
-    //fix:需改输出，弹一个显示表的新窗口
 }
 
 void MainWindow::on_run2_triggered()
 {
-    if(loaded==false)
+
+    if(loaded==true)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
-    s.getManager()->middleVar();
+    else
+    {
+        QGraphicsLineItem *line=new QGraphicsLineItem;
+        line->setLine(x(),y(),1000,1000);
+        scene->addItem(line);
+        QGraphicsEllipseItem *Ellipse=new QGraphicsEllipseItem;
+        Ellipse->setRect(x(),y(),100,100);
+        scene->addItem(Ellipse);
+        s.getManager()->middleVar();
+    }
     //fix:需改输出，画到图形框
 }
 

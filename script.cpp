@@ -135,9 +135,9 @@ void script::colonExp(string sen)
 void script::commandExp(string sen)
 {
     if(sen=="trueTable")
-        manager->trueTable();
+        cout<<manager->trueTable();
     else if(sen=="statTable")
-        manager->trueTable(0,true);
+        cout<<manager->trueTable(0,true);
     else if(sen=="gateNum")
         cout<<manager->gateNum();
     else if(sen=="run")

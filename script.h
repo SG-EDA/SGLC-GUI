@@ -18,6 +18,7 @@ public:
         delete this->manager;
         lineMap.clear();
     }
+    nodeManager* getManager() { return this->manager; }
 
     void clear();
     void eval(string sen);
@@ -26,9 +27,5 @@ public:
         auto com=help::split(code,"\n");
         for(auto i : com)
             eval(i);
-    }
-    nodeManager*getManager()
-    {
-        return this->manager;
     }
 };
