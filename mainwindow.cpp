@@ -50,10 +50,9 @@ void MainWindow::on_setLine_triggered()
         // Process when OK button is clicked
         if (dialog.exec() == QDialog::Accepted)
         {
-            QString  name=spinbox1->text();
-            QString  value=spinbox2->text();
+            QString name=spinbox1->text();
+            QString value=spinbox2->text();
             s.lineMap[name.toStdString()]->constVal=help::toint(value.toStdString());
-            spinbox2->text();
         }
     }
 }
@@ -85,7 +84,6 @@ void MainWindow::on_truthTable_triggered()
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
     else
     {
-
         string result=s.getManager()->trueTable();
         ui->textEdit->append(QString::fromStdString(result));
     }
@@ -152,7 +150,6 @@ void MainWindow::on_closeCircuitScript_triggered()
         ui->textEdit->clear();
         ui->Graph->scene()->clear();
     }
-    //清空文本框和图形框里的内容
 }
 
 QString ReadTXT(QString path)
