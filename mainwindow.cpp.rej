@@ -1,0 +1,14 @@
+diff a/mainwindow.cpp b/mainwindow.cpp	(rejected hunks)
+@@ -85,9 +85,10 @@
+         QMessageBox::information(NULL, "提示", "未加载电路脚本");
+     else
+     {
+-        s.getManager()->trueTable();
++
++        string result=s.getManager()->trueTable();
++        ui->textEdit->append(QString::fromStdString(result));
+     }
+-    //fix:需改输出，弹一个显示表的新窗口
+ }
+ 
+ void MainWindow::on_stateTruthTable_triggered()

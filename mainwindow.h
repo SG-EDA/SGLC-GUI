@@ -1,6 +1,18 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "ui_mainwindow.h"
+#include <QMessageBox>
+#include "script.h"
+#include <QLabel>
+#include <QSpinBox>
+#include <QFormLayout>
+#include <QDialogButtonBox>
+#include <QLineEdit>
+#include <QFileDialog>
+#include <QTextStream>
+#include <QGraphicsLineItem>
+
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include "script.h"

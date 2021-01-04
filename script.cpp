@@ -1,4 +1,5 @@
 #include "script.h"
+#include "excep.h"
 
 void script::clear()
 {
@@ -13,6 +14,15 @@ void script::clear()
     manager->addLine(falseLine);
 }
 
+void script::runFile(string path)
+{
+    string code=help::readTxt(path);
+    cout<<code<<endl;
+    cout<<"----- load:"<<path<<" -----"<<endl<<endl;
+    script::evalAll(code);
+    cout<<endl<<"-----end-----"<<endl;
+}
+
 void script::runFile(vector<string> com)
 {
     this->clear();
@@ -22,13 +32,8 @@ void script::runFile(vector<string> com)
     else
         path=com[1];
 
-    string code=help::readTxt(path);
-    cout<<code<<endl;
-    cout<<"----- load:"<<path<<" -----"<<endl<<endl;
-    script::evalAll(code);
-    cout<<endl<<"-----end-----"<<endl;
+    runFile(path);
 }
-
 
 void script::equExp(string sen)
 {
@@ -106,6 +111,14 @@ void script::equExp(string sen)
     }
 }
 
+void script::set(string name, string val)
+{
+    if(lineMap.count(name)>0)
+        lineMap[name]->constVal=help::toint(val);
+    else
+        throw undefinedVariableExcep();
+}
+
 void script::colonExp(string sen)
 {
     vector<string> com=help::split(sen,":");
@@ -122,12 +135,10 @@ void script::colonExp(string sen)
     else if(com[0]=="set")
     {
         vector<string> com2=help::split(com[1]," ");
-        lineMap[com2[0]]->constVal=help::toint(com2[1]);
+        set(com2[0],com2[1]);
     }
     else if(com[0]=="load")
-    {
         runFile(com);
-    }
     else
         throw string("Unexpected line markup");
 }

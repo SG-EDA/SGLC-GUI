@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "excep.h"
 #include <QMessageBox>
 #include "script.h"
 #include <QLabel>
@@ -49,11 +50,23 @@ void MainWindow::on_setLine_triggered()
 
         // Process when OK button is clicked
         if (dialog.exec() == QDialog::Accepted)
-        {
-            QString name=spinbox1->text();
-            QString value=spinbox2->text();
-            s.lineMap[name.toStdString()]->constVal=help::toint(value.toStdString());
-        }
+            {
+                QString name=spinbox1->text();
+                QString value=spinbox2->text();
+
+                try
+                {
+                    // s.set(name,value); //变量名和值都传string就行了，不用类型转换了
+                }
+                catch(undefinedVariableExcep e)
+                {
+                     QString name=spinbox1->text();
+                     QString value=spinbox2->text();
+                     s.lineMap[name.toStdString()]->constVal=help::toint(value.toStdString());
+            //undefinedVariableExcep在头文件excep.h里有，这是我更新之后新加的，记得复制过去然后添加到项目
+            //如果变量名不存在会触发这个异常，在这里弹个窗提示用户
+                 }
+             }
     }
 }
 
@@ -171,8 +184,10 @@ void MainWindow::on_load_triggered()
     if (!filename.isNull())
     {
        this->loaded=true; //选完了设true
-       s.eval(ReadTXT(filename).toStdString());
+       //s.eval(ReadTXT(filename).toStdString());
+       s.runFile(filename.toStdString());
     }
     else // 用户取消选择
+
        QMessageBox::information(NULL, "提示", "未加载电路脚本");
 }

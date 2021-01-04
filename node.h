@@ -100,22 +100,27 @@ private:
     vector<line*> allInput;
     vector<line*> allOutput;
     vector<node*> allTri;
-    void recuTriTrue(uint sub = 0)
+
+    string recuTriTrue(uint sub = 0)
     {
+        string result;
+
         tri* t=(tri*)(allTri[sub]->g);
         t->setQ(0);
 
-        if(sub==allTri.size()-1)
-            run(true);
+        if(sub==allTri.size()-1) //产生一个所有触发器值的组合之后再run
+            result=run(true)+result;
         else
-            recuTriTrue(sub+1);
+            result=recuTriTrue(sub+1)+result;
 
         t->setQ(1);
 
         if(sub==allTri.size()-1)
-            run(true);
+            result=run(true)+result;
         else
-            recuTriTrue(sub+1);
+            result=recuTriTrue(sub+1)+result;
+
+        return result;
     }
 
     void resetChunk()
@@ -164,18 +169,22 @@ public:
 
     string trueTable(uint sub = 0, bool staRecu=false)
     {
+        if(staRecu && this->allTri.empty())
+            return "There is no trigger in this circuit\n";
+
         string result;
+
         auto conti=[&]()
         {
             if(sub==allInput.size()-1)
             {
                 if(staRecu)
-                    recuTriTrue();
+                    result+=recuTriTrue();
                 else
                     result+=run();
             }
             else
-                trueTable(sub+1,staRecu);
+                result+=trueTable(sub+1,staRecu);
         };
 
         allInput[sub]->constVal=0;
@@ -200,7 +209,7 @@ public:
             for(uint i=0;i<allTri.size();i++)
             {
                 tri* t=(tri*)(allTri[i]->g);
-                result+="["+to_string(i)+"]"+to_string(t->getQ())<+" ";
+                result+="["+to_string(i)+"]"+to_string(t->getQ())+" ";
             }
         }
 

@@ -23,6 +23,7 @@ SOURCES += \
 
 HEADERS += \
     QString.h \
+    excep.h \
     gate.h \
     help.h \
     mainwindow.h \
