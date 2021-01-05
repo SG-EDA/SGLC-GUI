@@ -62,8 +62,6 @@ void MainWindow::on_setLine_triggered()
                     QMessageBox::information(NULL, "提示", "变量名不存在");
                      //如果变量名不存在会触发这个异常，在这里弹个窗提示用户
                  }
-                s.lineMap[name.toStdString()]->constVal=help::toint(value.toStdString());
-                //貌似缺一个判断；
              }
     }
 }
@@ -114,7 +112,7 @@ void MainWindow::on_stateTruthTable_triggered()
 void MainWindow::on_run2_triggered()
 {
 
-    if(loaded==true)
+    if(loaded==false)
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
     else
     {
@@ -160,6 +158,7 @@ void MainWindow::on_closeCircuitScript_triggered()
         s.clear();
         ui->textEdit->clear();
         ui->Graph->scene()->clear();
+        loaded==false;
     }
 }
 
