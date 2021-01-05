@@ -249,7 +249,10 @@
   </action>
   <action name="run2">
    <property name="text">
-    <string>运行（输出电路状态）</string>
+    <string>电路结构图</string>
+   </property>
+   <property name="toolTip">
+    <string>电路结构图</string>
    </property>
   </action>
   <action name="elementCount">
