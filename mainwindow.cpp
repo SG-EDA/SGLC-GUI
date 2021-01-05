@@ -15,6 +15,10 @@
 #include <QGraphicsLineItem>
 #include <QProcess>
 
+#include <windows.h>
+#include <string>
+using namespace std;
+
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -183,6 +187,7 @@ void MainWindow::on_load_triggered()
 
 void MainWindow::on_routerCmd_triggered()
 {
-    QProcess process(this);
-    process.startDetached("router.exe");
+    QString path=QDir::currentPath()+"/router.exe";
+    string command="start "+path.toStdString();
+    system(command.c_str());
 }
