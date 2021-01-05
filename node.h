@@ -2,6 +2,10 @@
 #include "gate.h"
 #include "help.h"
 #include <map>
+#include "pos.h"
+#include <QPainter>
+#include <QGraphicsLineItem>
+#include <QGraphicsScene>
 
 class node;
 
@@ -15,14 +19,14 @@ private:
 public:
     node *n;
     bool constVal;
-
+    pos stru(QGraphicsScene* scene,uint tabNum=0);
     line(string name, node *n,uint sub=0) : name(name), n(n), sub(sub) {}
     void delayedConstruction(node *n,uint sub=0);
     line(string name,bool constVal=0) : name(name), isConst(true), constVal(constVal) {}
     bool get();
     string getName() { return this->name; }
     bool getIsEvaling();
-    void stru(uint tabNum=0);
+
 };
 
 
@@ -58,6 +62,7 @@ public:
     blist result;
     gate *g;
 
+
     node(gate* g) : g(g) {}
     ~node() { delete g; }
     void addInputLine(line* l) { inputLine.push_back(l); }
@@ -74,20 +79,21 @@ public:
         return this->result;
     }
 
-    void stru(uint tabNum=0)
-    {
-        cout<<g->getName()<<"-";
+  pos stru(QGraphicsScene* scene,uint tabNum=0)
+    {        
+        pos posself(0,0);
+         //根据传入的层级和一些其它的信息计算自己应该所在的坐标
+         //画自己
         for(uint i=0;i<inputLine.size();i++)
-        {
-            inputLine[i]->stru(tabNum+1);
-            if(i!=inputLine.size()-1)
             {
-                cout<<endl;
-                help::tab(tabNum+1);
+                pos posself1=stru(scene,tabNum+1);
+                QGraphicsLineItem *line=new QGraphicsLineItem;
+                line->setLine(posself.x,posself.y,posself1.x,posself1.y);
+                scene->addItem(line);
+                //画自己的输入，得到那个输入的坐标
+                //在自己的坐标和坐标2之间创建连线
             }
-        }
-        if(tabNum==0)
-            cout<<endl;
+            return posself; //将自己的坐标返回给上一层
     }
 };
 
@@ -98,7 +104,7 @@ private:
     list<node*> allNode;
     list<line*> allLine;
     vector<line*> allInput;
-    vector<line*> allOutput;
+
     vector<node*> allTri;
 
     string recuTriTrue(uint sub = 0)
@@ -132,6 +138,7 @@ private:
     void addTri(node* n) { allTri.push_back(n); }
 
 public:
+    vector<line*> allOutput;
     ~nodeManager()
     {
         for(line* i : allLine)
@@ -230,11 +237,6 @@ public:
         }
     }
 
-    void stru()
-    {
-        for(line* i : allOutput)
-            i->stru();
-    }
 
     void middleVar()
     {

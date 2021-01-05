@@ -1,7 +1,7 @@
 #pragma once
 #include "QString.h"
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <cassert>
 using namespace std;
 
@@ -37,8 +37,8 @@ public:
 
     static void tab(unsigned int num=0)
     {
-        for(unsigned int i=0;i<num;i++)
-            cout<<"   ";
+        //for(unsigned int i=0;i<num;i++)
+            //cout<<"   ";
     }
 
     static int toint(string str)

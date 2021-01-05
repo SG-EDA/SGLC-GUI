@@ -3,6 +3,8 @@
 #include "excep.h"
 #include <QMessageBox>
 #include "script.h"
+#include "node.h"
+#include "pos.h"
 #include <QLabel>
 #include <QSpinBox>
 #include <QFormLayout>
@@ -116,13 +118,15 @@ void MainWindow::on_run2_triggered()
         QMessageBox::information(NULL, "提示", "未加载电路脚本");
     else
     {
-        QGraphicsLineItem *line=new QGraphicsLineItem;
-        line->setLine(x(),y(),1000,1000);
-        scene->addItem(line);
+
         QGraphicsEllipseItem *Ellipse=new QGraphicsEllipseItem;
         Ellipse->setRect(x(),y(),100,100);
         scene->addItem(Ellipse);
         s.getManager()->middleVar();
+        for(line* i:s.getManager()->allOutput)
+        {
+            i->stru(scene,0);
+        }
     }
     //fix:需改输出，画到图形框
 }
@@ -158,7 +162,7 @@ void MainWindow::on_closeCircuitScript_triggered()
         s.clear();
         ui->textEdit->clear();
         ui->Graph->scene()->clear();
-        loaded==false;
+        loaded=false;
     }
 }
 
@@ -185,6 +189,5 @@ void MainWindow::on_load_triggered()
        s.runFile(filename.toStdString());
     }
     else // 用户取消选择
-
        QMessageBox::information(NULL, "提示", "未加载电路脚本");
 }

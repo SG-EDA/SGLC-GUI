@@ -153,8 +153,8 @@ void script::commandExp(string sen)
         cout<<manager->gateNum();
     else if(sen=="run")
         cout<<manager->run();
-    else if(sen=="stru")
-        manager->stru();
+    //else if(sen=="stru")
+       // manager->stru();
     else if(sen=="clear")
         this->clear();
     else if(sen=="middleVar")

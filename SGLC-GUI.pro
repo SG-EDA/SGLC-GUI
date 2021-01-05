@@ -28,6 +28,7 @@ HEADERS += \
     help.h \
     mainwindow.h \
     node.h \
+    pos.h \
     script.h
 
 FORMS += \
