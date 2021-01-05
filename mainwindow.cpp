@@ -53,19 +53,17 @@ void MainWindow::on_setLine_triggered()
             {
                 QString name=spinbox1->text();
                 QString value=spinbox2->text();
-
                 try
                 {
-                    // s.set(name,value); //变量名和值都传string就行了，不用类型转换了
+                     s.set(name.toStdString(),value.toStdString());
                 }
                 catch(undefinedVariableExcep e)
                 {
-                     QString name=spinbox1->text();
-                     QString value=spinbox2->text();
-                     s.lineMap[name.toStdString()]->constVal=help::toint(value.toStdString());
-            //undefinedVariableExcep在头文件excep.h里有，这是我更新之后新加的，记得复制过去然后添加到项目
-            //如果变量名不存在会触发这个异常，在这里弹个窗提示用户
+                    QMessageBox::information(NULL, "提示", "变量名不存在");
+                     //如果变量名不存在会触发这个异常，在这里弹个窗提示用户
                  }
+                s.lineMap[name.toStdString()]->constVal=help::toint(value.toStdString());
+                //貌似缺一个判断；
              }
     }
 }
