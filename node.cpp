@@ -22,12 +22,12 @@ bool line::get()
         return n->eval()[sub];
 }
 
-pos line::stru(QGraphicsScene* scene,uint tabNum)
+pos line::stru(QGraphicsScene* scene,uint tabNum,uint tabNum1)
 {
     if(isConst)
     {
         cout<<getName();
     }
     else
-       return n->stru(scene,tabNum);
+       return n->stru(scene,tabNum,tabNum1);
 }

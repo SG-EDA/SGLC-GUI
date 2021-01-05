@@ -19,7 +19,7 @@ private:
 public:
     node *n;
     bool constVal;
-    pos stru(QGraphicsScene* scene,uint tabNum=0);
+    pos stru(QGraphicsScene* scene,uint tabNum=0,uint tabNum1=0);
     line(string name, node *n,uint sub=0) : name(name), n(n), sub(sub) {}
     void delayedConstruction(node *n,uint sub=0);
     line(string name,bool constVal=0) : name(name), isConst(true), constVal(constVal) {}
@@ -79,14 +79,24 @@ public:
         return this->result;
     }
 
-  pos stru(QGraphicsScene* scene,uint tabNum=0)
-    {        
-        pos posself(1,1);
-         //根据传入的层级和一些其它的信息计算自己应该所在的坐标
+  pos stru(QGraphicsScene* scene,uint tabNum=0,uint tabNum1=0)
+    {
+        int x=50;
+        int y=50;
+        x=x*tabNum*2+x;
+        y=y*tabNum1*2+y;
+        pos posself(x,y); //根据传入的层级和一些其它的信息计算自己应该所在的坐标
+        QGraphicsEllipseItem *Ellipse=new QGraphicsEllipseItem;
+        Ellipse->setRect(x-25,y-25,50,50);
+        scene->addItem(Ellipse);
+        QGraphicsTextItem *text=new QGraphicsTextItem(QString::fromStdString(g->getName()));
+        text->setFont(QFont("微软雅黑",10));
+        text->setPos(x,y);
+        scene->addItem(text);
          //画自己
         for(uint i=0;i<inputLine.size();i++)
             {
-                pos posself1=inputLine[i]->stru(scene,tabNum+1);
+                pos posself1=inputLine[i]->stru(scene,tabNum+1,tabNum1+i);
                 QGraphicsLineItem *line=new QGraphicsLineItem;
                 line->setLine(posself.x,posself.y,posself1.x,posself1.y);
                 scene->addItem(line);
@@ -237,11 +247,11 @@ public:
         }
     }
 
-    void stru(QGraphicsScene* scene,uint tabNum=0)
+    void stru(QGraphicsScene* scene,uint tabNum=0,uint tabNum1=0)
     {
         for(line* i:allOutput)
         {
-            i->stru(scene,0);
+            i->stru(scene,0,0);
         }
     }
 
