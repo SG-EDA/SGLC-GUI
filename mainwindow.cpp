@@ -122,7 +122,7 @@ void MainWindow::on_run2_triggered()
         // Ellipse->setRect(x(),y(),100,100);
         //scene->addItem(Ellipse);
         //s.getManager()->middleVar();
-        s.getManager()->stru(scene,0);
+        s.getManager()->stru(scene);
     }
     //fix:需改输出，画到图形框
 }
@@ -186,4 +186,9 @@ void MainWindow::on_load_triggered()
     }
     else // 用户取消选择
        QMessageBox::information(NULL, "提示", "未加载电路脚本");
+}
+
+void MainWindow::on_routerCmd_triggered()
+{
+     QMessageBox::information(NULL, "提示", "？？？？？");
 }

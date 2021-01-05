@@ -81,11 +81,12 @@ public:
 
   pos stru(QGraphicsScene* scene,uint tabNum=0,uint tabNum1=0)
     {
-        int x=50;
+        int x=-400;
         int y=50;
-        x=x*tabNum*2+x;
-        y=y*tabNum1*2+y;
-        pos posself(x,y); //根据传入的层级和一些其它的信息计算自己应该所在的坐标
+        x=(qAbs(x)*tabNum)/3+x;
+        y=(y*tabNum1*2)+y;
+        pos posself(x,y);
+       //根据传入的层级和一些其它的信息计算自己应该所在的坐标
         QGraphicsEllipseItem *Ellipse=new QGraphicsEllipseItem;
         Ellipse->setRect(x-25,y-25,50,50);
         scene->addItem(Ellipse);
@@ -93,7 +94,7 @@ public:
         text->setFont(QFont("微软雅黑",10));
         text->setPos(x,y);
         scene->addItem(text);
-         //画自己
+        //画自己
         for(uint i=0;i<inputLine.size();i++)
             {
                 pos posself1=inputLine[i]->stru(scene,tabNum+1,tabNum1+i);
@@ -247,11 +248,13 @@ public:
         }
     }
 
-    void stru(QGraphicsScene* scene,uint tabNum=0,uint tabNum1=0)
+    void stru(QGraphicsScene* scene)
     {
+        uint a=0;
         for(line* i:allOutput)
         {
-            i->stru(scene,0,0);
+            i->stru(scene,0,a);
+            a++;
         }
     }
 

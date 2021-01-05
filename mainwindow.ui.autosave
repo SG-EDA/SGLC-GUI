@@ -209,7 +209,7 @@
     <property name="title">
      <string>后端</string>
     </property>
-    <addaction name="action"/>
+    <addaction name="routerCmd&#10;"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -267,7 +267,7 @@
     <string>关闭当前电路脚本</string>
    </property>
   </action>
-  <action name="action">
+  <action name="routerCmd&#10;">
    <property name="text">
     <string>启动布线后端命令行</string>
    </property>
