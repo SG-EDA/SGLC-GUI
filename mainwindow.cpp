@@ -148,15 +148,10 @@ void MainWindow::on_lineComplexity_triggered()
 
 void MainWindow::on_closeCircuitScript_triggered()
 {
-    if(loaded==false)
-        QMessageBox::information(nullptr, "提示", "未加载电路脚本");
-    else
-    {
-        s.clear();
-        ui->textEdit->clear();
-        ui->Graph->scene()->clear();
-        loaded=false;
-    }
+    s.clear();
+    ui->textEdit->clear();
+    ui->Graph->scene()->clear();
+    loaded=false;
 }
 
 QString ReadTXT(QString path)
@@ -177,9 +172,9 @@ void MainWindow::on_load_triggered()
 
     if (!filename.isNull())
     {
-       this->loaded=true; //选完了设true
-       //s.eval(ReadTXT(filename).toStdString());
-       s.runFile(filename.toStdString());
+        this->on_closeCircuitScript_triggered();
+        this->loaded=true; //选完了设true
+        s.runFile(filename.toStdString());
     }
     else // 用户取消选择
        QMessageBox::information(nullptr, "提示", "未加载电路脚本");

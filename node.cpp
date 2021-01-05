@@ -1,5 +1,4 @@
 #include "node.h"
-#include "gate.h"
 
 void line::delayedConstruction(node *n, uint sub)
 {

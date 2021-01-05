@@ -4,7 +4,7 @@
 class script
 {
 private:
-
+    void runFile(vector<string> com);
     void equExp(string sen);
     void colonExp(string sen);
     void commandExp(string sen);
@@ -12,7 +12,6 @@ private:
 
 public:
     void runFile(string path);
-    void runFile(vector<string> com);
     void set(string name,string val);
     map<string,line*> lineMap; //没有所有权
     script() { this->manager=new nodeManager; }

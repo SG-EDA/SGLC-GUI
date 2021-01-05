@@ -62,7 +62,6 @@ public:
     blist result;
     gate *g;
 
-
     node(gate* g) : g(g) {}
     ~node() { delete g; }
     void addInputLine(line* l) { inputLine.push_back(l); }
@@ -120,7 +119,7 @@ private:
     list<node*> allNode;
     list<line*> allLine;
     vector<line*> allInput;
-
+    vector<line*> allOutput;
     vector<node*> allTri;
 
     string recuTriTrue(uint sub = 0)
@@ -154,7 +153,6 @@ private:
     void addTri(node* n) { allTri.push_back(n); }
 
 public:
-    vector<line*> allOutput;
     ~nodeManager()
     {
         for(line* i : allLine)
