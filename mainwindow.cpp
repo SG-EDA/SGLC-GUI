@@ -13,6 +13,7 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QGraphicsLineItem>
+#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -52,26 +53,25 @@ void MainWindow::on_setLine_triggered()
 
         // Process when OK button is clicked
         if (dialog.exec() == QDialog::Accepted)
+        {
+            QString name=spinbox1->text();
+            QString value=spinbox2->text();
+            try
             {
-                QString name=spinbox1->text();
-                QString value=spinbox2->text();
-                try
-                {
-                     s.set(name.toStdString(),value.toStdString());
-                }
-                catch(undefinedVariableExcep e)
-                {
-                    QMessageBox::information(NULL, "提示", "变量名不存在");
-                     //如果变量名不存在会触发这个异常，在这里弹个窗提示用户
-                 }
-             }
+                 s.set(name.toStdString(),value.toStdString());
+            }
+            catch(undefinedVariableExcep e)
+            {
+                QMessageBox::information(nullptr, "提示", "变量名不存在");
+            }
+        }
     }
 }
 
 void MainWindow::on_resetTrigger_triggered()
 {
     if(loaded==false)
-        QMessageBox::information(NULL, "提示", "未加载电路脚本");
+        QMessageBox::information(nullptr, "提示", "未加载电路脚本");
     else
     {
         s.getManager()->resetTri();
@@ -81,7 +81,7 @@ void MainWindow::on_resetTrigger_triggered()
 void MainWindow::on_run_triggered()
 {
     if(loaded==false)
-        QMessageBox::information(NULL, "提示", "未加载电路脚本");
+        QMessageBox::information(nullptr, "提示", "未加载电路脚本");
     else
     {
         string result=s.getManager()->run();
@@ -92,7 +92,7 @@ void MainWindow::on_run_triggered()
 void MainWindow::on_truthTable_triggered()
 {
     if(loaded==false)
-        QMessageBox::information(NULL, "提示", "未加载电路脚本");
+        QMessageBox::information(nullptr, "提示", "未加载电路脚本");
     else
     {
         string result=s.getManager()->trueTable();
@@ -103,7 +103,7 @@ void MainWindow::on_truthTable_triggered()
 void MainWindow::on_stateTruthTable_triggered()
 {
     if(loaded==false)
-        QMessageBox::information(NULL, "提示", "未加载电路脚本");
+        QMessageBox::information(nullptr, "提示", "未加载电路脚本");
     else
     {
        string result=s.getManager()->trueTable(0,true);
@@ -115,22 +115,15 @@ void MainWindow::on_run2_triggered()
 {
 
     if(loaded==false)
-        QMessageBox::information(NULL, "提示", "未加载电路脚本");
+        QMessageBox::information(nullptr, "提示", "未加载电路脚本");
     else
-    {
-        //QGraphicsEllipseItem *Ellipse=new QGraphicsEllipseItem;
-        // Ellipse->setRect(x(),y(),100,100);
-        //scene->addItem(Ellipse);
-        //s.getManager()->middleVar();
         s.getManager()->stru(scene);
-    }
-    //fix:需改输出，画到图形框
 }
 
 void MainWindow::on_elementCount_triggered()
 {
     if(loaded==false)
-        QMessageBox::information(NULL, "提示", "未加载电路脚本");
+        QMessageBox::information(nullptr, "提示", "未加载电路脚本");
     else
     {
         string result=s.getManager()->gateNum();
@@ -141,7 +134,7 @@ void MainWindow::on_elementCount_triggered()
 void MainWindow::on_lineComplexity_triggered()
 {
     if(loaded==false)
-        QMessageBox::information(NULL, "提示", "未加载电路脚本");
+        QMessageBox::information(nullptr, "提示", "未加载电路脚本");
     else
     {
         string result=s.getManager()->multiplexing();
@@ -152,7 +145,7 @@ void MainWindow::on_lineComplexity_triggered()
 void MainWindow::on_closeCircuitScript_triggered()
 {
     if(loaded==false)
-        QMessageBox::information(NULL, "提示", "未加载电路脚本");
+        QMessageBox::information(nullptr, "提示", "未加载电路脚本");
     else
     {
         s.clear();
@@ -185,10 +178,11 @@ void MainWindow::on_load_triggered()
        s.runFile(filename.toStdString());
     }
     else // 用户取消选择
-       QMessageBox::information(NULL, "提示", "未加载电路脚本");
+       QMessageBox::information(nullptr, "提示", "未加载电路脚本");
 }
 
 void MainWindow::on_routerCmd_triggered()
 {
-     QMessageBox::information(NULL, "提示", "？？？？？");
+    QProcess process(this);
+    process.startDetached("router.exe");
 }

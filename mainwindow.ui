@@ -170,7 +170,7 @@
      <x>0</x>
      <y>0</y>
      <width>736</width>
-     <height>17</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -209,7 +209,7 @@
     <property name="title">
      <string>后端</string>
     </property>
-    <addaction name="action"/>
+    <addaction name="routerCmd"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -267,7 +267,7 @@
     <string>关闭当前电路脚本</string>
    </property>
   </action>
-  <action name="action">
+  <action name="routerCmd">
    <property name="text">
     <string>启动布线后端命令行</string>
    </property>

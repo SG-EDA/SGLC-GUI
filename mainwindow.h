@@ -32,7 +32,6 @@ public:
     bool loaded=false;
 
 private slots:
-
     void on_setLine_triggered();
     void on_resetTrigger_triggered();
     void on_run_triggered();
@@ -43,6 +42,8 @@ private slots:
     void on_lineComplexity_triggered();
     void on_closeCircuitScript_triggered();
     void on_load_triggered();
+
+    void on_routerCmd_triggered();
 
 private:
     Ui::MainWindow *ui;
