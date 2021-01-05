@@ -81,12 +81,12 @@ public:
 
   pos stru(QGraphicsScene* scene,uint tabNum=0)
     {        
-        pos posself(0,0);
+        pos posself(1,1);
          //根据传入的层级和一些其它的信息计算自己应该所在的坐标
          //画自己
         for(uint i=0;i<inputLine.size();i++)
             {
-                pos posself1=stru(scene,tabNum+1);
+                pos posself1=inputLine[i]->stru(scene,tabNum+1);
                 QGraphicsLineItem *line=new QGraphicsLineItem;
                 line->setLine(posself.x,posself.y,posself1.x,posself1.y);
                 scene->addItem(line);
@@ -234,6 +234,14 @@ public:
         {
             tri* t=(tri*)(i->g);
             t->setQ(0);
+        }
+    }
+
+    void stru(QGraphicsScene* scene,uint tabNum=0)
+    {
+        for(line* i:allOutput)
+        {
+            i->stru(scene,0);
         }
     }
 
