@@ -19,7 +19,7 @@ private:
 public:
     node *n;
     bool constVal;
-    pos stru(QGraphicsScene* scene,uint tabNum1=0,uint tabNum2=0);
+    pos stru(QGraphicsScene* scene, uint &endlNum, uint tabNum1=0);
     line(string name, node *n,uint sub=0) : name(name), n(n), sub(sub) {}
     void delayedConstruction(node *n,uint sub=0);
     line(string name,bool constVal=0) : name(name), isConst(true), constVal(constVal) {}
@@ -79,32 +79,38 @@ public:
         return this->result;
     }
 
-  pos stru(QGraphicsScene* scene,uint tabNum1=0,uint tabNum2=0)
-    {
-        int x=-400;
-        int y=50;
-        x=(qAbs(x)*tabNum1)/3+x;
-        y=(y*tabNum2*2)+y;
-        pos posself(x,y);
-       //根据传入的层级和一些其它的信息计算自己应该所在的坐标
-        QGraphicsEllipseItem *Ellipse=new QGraphicsEllipseItem;
-        Ellipse->setRect(x-25,y-25,50,50);
-        scene->addItem(Ellipse);
-        QGraphicsTextItem *text=new QGraphicsTextItem(QString::fromStdString(g->getName()));
-        text->setFont(QFont("微软雅黑",10));
-        text->setPos(x,y);
-        scene->addItem(text);
-        //画自己
-        for(uint i=0;i<inputLine.size();i++)
-        {
-            pos posself1=inputLine[i]->stru(scene,tabNum1+1,tabNum2+i); //画自己的输入，得到那个输入的坐标
-            //在自己的坐标和坐标2之间创建连线
-            QGraphicsLineItem *line=new QGraphicsLineItem;
-            line->setLine(posself.x,posself.y,posself1.x,posself1.y);
-            scene->addItem(line);
-        }
-        return posself; //将自己的坐标返回给上一层
-    }
+  pos stru(QGraphicsScene* scene,uint &endlNum,uint tabNum1=0)
+  {
+      int x=-400;
+      int y=20;
+      x=(qAbs(x)*tabNum1)/3+x;
+      y=(y*endlNum*2)+y;
+      pos posself(x,y);
+     //根据传入的层级和一些其它的信息计算自己应该所在的坐标
+      QGraphicsEllipseItem *Ellipse=new QGraphicsEllipseItem;
+      Ellipse->setRect(x-25,y-25,50,50);
+      scene->addItem(Ellipse);
+      QGraphicsTextItem *text=new QGraphicsTextItem(QString::fromStdString(g->getName()));
+      text->setFont(QFont("微软雅黑",10));
+      text->setPos(x,y);
+      scene->addItem(text);
+      //画自己
+      for(uint i=0;i<inputLine.size();i++)
+      {
+          pos posself1=inputLine[i]->stru(scene,endlNum,tabNum1+1); //画自己的输入，得到那个输入的坐标
+          if(i!=inputLine.size()-1) //准备画它的下一个输入，先把前面的空行空好
+          {
+              endlNum++;
+          }
+          //在自己的坐标和坐标2之间创建连线
+          QGraphicsLineItem *line=new QGraphicsLineItem;
+          line->setLine(posself.x,posself.y,posself1.x,posself1.y);
+          scene->addItem(line);
+      }
+      if(tabNum1==0) //上面的循环结束了，代表目前这个元件的所有输入都画完了。如果目前这个元件是第0层，那所有的都画完了
+        endlNum++;
+      return posself; //将自己的坐标返回给上一层
+  }
 };
 
 
@@ -249,12 +255,9 @@ public:
 
     void stru(QGraphicsScene* scene)
     {
-        uint newa,a=0;
+        uint newendlNum=0;
         for(line* i:allOutput)
-        {
-            i->stru(scene,0,a);
-            a++;
-        }
+            i->stru(scene,newendlNum,0);
     }
 
 
